@@ -80,7 +80,8 @@ class robot:
         measurements = []
         
         ## TODO: iterate through all of the landmarks in a world
-        
+        for index in range(self.num_landmarks):
+
         ## TODO: For each landmark
         ## 1. compute dx and dy, the distances between the robot and the landmark
         ## 2. account for measurement noise by *adding* a noise component to dx and dy
@@ -89,7 +90,13 @@ class robot:
         ## 3. If either of the distances, dx or dy, fall outside of the internal var, measurement_range
         ##    then we cannot record them; if they do fall in the range, then add them to the measurements list
         ##    as list.append([index, dx, dy]), this format is important for data creation done later
-        
+            dx = self.landmarks[index][0] - self.x
+            dy = self.landmarks[index][1] - self.y
+            dx += self.rand() * self.measurement_noise
+            dy += self.rand() * self.measurement_noise
+            if (dx <= self.measurement_range) or (dy <= self.measurement_range):
+                measurements.append([index, dx, dy])
+
         ## TODO: return the final, complete list of measurements
         return measurements
 
